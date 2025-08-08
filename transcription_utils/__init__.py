@@ -5,12 +5,12 @@ from dotenv import load_dotenv
 
 load_dotenv("./config/.env")
 
-class WhisperModel:
+class SpeechModel:
     """Speech-to-text transcription using OpenAI's Whisper model.
 
     # Usage
     ```python
-    model = WhisperModel()
+    model = SpeechModel()
     text = model.transcribe("path/to/audio.mp3")
     ```
 

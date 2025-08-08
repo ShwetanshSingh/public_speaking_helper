@@ -2,7 +2,7 @@ import os
 import pytest
 from unittest.mock import Mock, patch
 
-from transcription_utils import WhisperModel
+from transcription_utils import SpeechModel
 
 @pytest.fixture
 def whisper_model():
@@ -10,7 +10,7 @@ def whisper_model():
         # Mock the whisper model
         mock_model = Mock()
         mock_load.return_value = mock_model
-        model = WhisperModel()
+        model = SpeechModel()
         model.model = mock_model
         yield model
 
@@ -44,12 +44,12 @@ def test_transcribe_with_actual_env(whisper_model):
     test_model_type = "medium"
     with patch.dict(os.environ, {'WHISPER_MODEL': test_model_type}):
         with patch('whisper.load_model') as mock_load:
-            WhisperModel()
+            SpeechModel()
             mock_load.assert_called_once_with(test_model_type)
 
 def test_transcribe_with_default_model(whisper_model):
     """Test that default model type is used when env var is not set"""
     with patch.dict(os.environ, clear=True):
         with patch('whisper.load_model') as mock_load:
-            WhisperModel()
+            SpeechModel()
             mock_load.assert_called_once_with("base")
